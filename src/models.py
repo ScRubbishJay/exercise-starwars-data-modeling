@@ -9,8 +9,6 @@ Base = declarative_base()
 
 class People(Base):
     __tablename__ = 'people'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     appearances = Column(String(250), nullable=False)
@@ -29,18 +27,18 @@ class Planets(Base):
 
 class Favorites(Base):
     __tablename__ = 'favorites'
+    id = Column(Integer, primary_key=True)
+   
 
 class User(Base):
-   __tablename__ = 'user'
-   name = Column(String(250), nullable=False)
-   id= Column()
-   email = Column(String(250), nullable=False)
-   Favorites = Column(String(250), nullable=False)
-
-
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    favorites = relationship('Favorites', backref='user')
 
 def to_dict(self):
-        return {}
+    return {}
 
-## Draw from SQLAlchemy base
+# Draw ER diagram
 render_er(Base, 'diagram.png')
